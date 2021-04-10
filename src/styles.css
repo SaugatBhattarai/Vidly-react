@@ -1,0 +1,10 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+.clickable {
+  cursor: pointer;
+}
+.navbar {
+  margin-bottom: 30px;
+}
