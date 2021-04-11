@@ -29,7 +29,7 @@ class LoginForm extends Form {
     } catch (error) {
       if (error.response && error.response.status === 400) {
         const errors = { ...this.state.errors  };
-        errors.username = errors.response.data;
+        errors.username = error.response.data;
         this.setState({ errors });
       }
     }
