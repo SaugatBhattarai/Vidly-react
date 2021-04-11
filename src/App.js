@@ -1,7 +1,6 @@
 import React, { Fragment , Component} from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import jwt_decode from 'jwt-decode';
 
 import Movies from "./components/movies.jsx";
 import Customers from "./components/customers";
@@ -12,22 +11,19 @@ import NavBar from "./components/navBar.jsx";
 import LoginForm from './components/loginForm';
 import RegistrationForm from './components/registrationForm';
 import Logout from "./components/logout.jsx";
+import { getCurrentUser } from "./services/authService.js";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-
 
 class App extends Component {
   state = {  }
 
   componentDidMount() {
-    try{
-      const jwt = localStorage.getItem("token");
-      const user = jwt_decode(jwt);
-      this.setState({ user });
-    }
-    catch(ex){}
+   const user = getCurrentUser()
+   this.setState({ user });
   }
+
   render() { 
     return (
       <Fragment>
