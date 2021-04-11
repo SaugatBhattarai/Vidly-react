@@ -34,14 +34,15 @@ class Movies extends Component {
 
     const movies = originalMovies.filter((m) => m._id !== movie._id); 
     this.setState({ movies: movies });
+
     try {
       await deleteMovie(movie._id);
     } catch (ex) {
       if (ex.response && ex.response.status === 404) {
         toast.error("This Movie has already been deleted.");
-
-        this.setState({ movies: originalMovies });
       }
+      this.setState({ movies: originalMovies });
+      
     }
   };
 
@@ -105,6 +106,7 @@ class Movies extends Component {
   render() {
     const { length: count } = this.state.movies;
     const { pageSize, currentPage, sortColumn, searchQuery } = this.state;
+    const { user } = this.props;
 
     if (count === 0) return <p>Current there is no movies</p>;
 
@@ -122,13 +124,13 @@ class Movies extends Component {
           </div>
 
           <div className="col-9">
-            <Link
+          {user && <Link
               to="/movies/new"
               className="btn btn-primary"
               style={{ marginBottom: 20 }}
             >
               New Movies
-            </Link>
+            </Link>}
             <p>Currently Showing {totalCount} Movies in the Database</p>
 
             <SearchBox value={searchQuery} onChange={this.handleSearch} />
